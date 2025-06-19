@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+    <style>
+        body {
+            background-image: url("https://i.pinimg.com/736x/e6/3c/59/e63c595dd1ad68d9699c73ffb7343d91.jpg");
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #d49cfd; /* Lavender Purple */
+            padding: 20px;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .week {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .day-section {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+        .day-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #fff; /* White for contrast */
+        }
+        .task-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .task-text {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: #d177d1; /* Lighter lavender shade */
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #231313; /* Gray for completed tasks */
+        }
+        .sticker {
+            position: absolute;
+            top: 30px;
+            left: 230px;
+            width: 130px;
+            height: 130px;
+            cursor: pointer;
+            animation: glitter 1s infinite alternate;
+        }
+        @keyframes glitter {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.5); }
+        }
+        .quote-box {
+            position: absolute;
+            top: 50px;
+            left: 370px;
+            background: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    
+       <img src="images (1)-Photoroom.png" class="sticker" alt="Sticker" onclick="showQuote()">
+
+       <div id="quoteBox" class="quote-box"></div>
+
+        <div class="heading">TO DO LIST</div>
+        
+        <div class="week">
+            <div class="day-section">
+                <div class="day-title">Monday</div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 1">
+                </div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 2">
+                </div>
+            </div>
+
+            <div class="day-section">
+                <div class="day-title">Tuesday</div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 1">
+                </div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 2">
+                </div>
+            </div>
+             <div class="day-section">
+                <div class="day-title">wednesday</div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 1">
+                </div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 2">
+                </div>
+            </div>
+             <div class="day-section">
+                <div class="day-title">thrusday</div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 1">
+                </div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 2">
+                </div>
+            </div>
+             <div class="day-section">
+                <div class="day-title">friday</div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 1">
+                </div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 2">
+                </div>
+            </div>
+             <div class="day-section">
+                <div class="day-title">saturday</div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 1">
+                </div>
+                <div class="task-line">
+                    <input type="checkbox" onclick="markComplete(this)">
+                    <input type="text" class="task-text" placeholder="Task 2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function markComplete(checkbox) {
+            let taskText = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                taskText.classList.add("completed");
+            } else {
+                taskText.classList.remove("completed");
+            }
+        }
+    
+
+        
+    
+        function showQuote() {
+            const quotes = [
+                "NEVER EVER GIVE UP",
+                "Believe in yourself!",
+                "You are capable of amazing things!",
+                "Success is the sum of small efforts.",
+                "Keep going, you're closer than you think!",
+                "Your only limit is your mind!"
+            ];
+            let quoteBox = document.getElementById("quoteBox");
+            let randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteBox.innerText = randomQuote;
+            quoteBox.style.display = "block";
+        }
+    </script>
+</body>
+</html>
