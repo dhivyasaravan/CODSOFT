@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stylish Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      font-size: 36px;
+      margin: 20px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @keyframes glitter {
+      0% { text-shadow: 0 0 5px #fff; }
+      25% { text-shadow: 0 0 10px #ffdf00, 0 0 20px #ffdf00; }
+      50% { text-shadow: 0 0 15px #ff00cc, 0 0 25px #ff00cc; }
+      75% { text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff; }
+      100% { text-shadow: 0 0 5px #fff; }
+    }
+
+    .glitter {
+      animation: glitter 1s ease-in-out;
+    }
+
+    .main {
+      display: flex;
+      flex: 1;
+    }
+
+    .memory {
+      background: #e3d17e;
+      color: black;
+      width: 220px;
+      padding: 20px;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.3);
+      overflow-y: auto;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .memory h2 {
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    .calculator-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 30px;
+      overflow: auto;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      width: 300px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      font-size: 28px;
+      padding: 5px;
+      margin-bottom: 20px;
+      text-align: right;
+      border: none;
+      border-radius: 10px;
+      background-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .memory-entry {
+      font-size: 16px;
+      margin: 6px 0;
+    }
+
+    .clear-memory {
+      margin-top: 10px;
+      padding: 8px 12px;
+      font-size: 14px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .clear-memory:hover {
+      background-color: #e60000;
+    }
+  </style>
+</head>
+<body>
+  <div class="memory">
+    <h2>Memory</h2>
+    <div id="memoryLog"></div>
+    <button class="clear-memory" onclick="clearMemory()">Clear Memory</button>
+  </div>
+
+  <div class="main">
+    <div class="calculator-wrapper">
+      <h1 id="title" onclick="triggerGlitter()">Calculator</h1>
+      <div class="calculator">
+        <input type="text" id="result" readonly />
+        <div class="buttons">
+          <button onclick="appendValue('1')">1</button>
+          <button onclick="appendValue('2')">2</button>
+          <button onclick="appendValue('3')">3</button>
+          <button onclick="appendValue('+')">+</button>
+          <button onclick="appendValue('4')">4</button>
+          <button onclick="appendValue('5')">5</button>
+          <button onclick="appendValue('6')">6</button>
+          <button onclick="appendValue('-')">-</button>
+          <button onclick="appendValue('7')">7</button>
+          <button onclick="appendValue('8')">8</button>
+          <button onclick="appendValue('9')">9</button>
+          <button onclick="appendValue('*')">*</button>
+          <button onclick="appendValue('0')">0</button>
+          <button onclick="appendValue('.')">.</button>
+          <button onclick="calculate()">=</button>
+          <button onclick="appendValue('/')">/</button>
+          <button onclick="clearResult()">C</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function appendValue(val) {
+      document.getElementById("result").value += val;
+    }
+
+    function calculate() {
+      const input = document.getElementById("result").value;
+      try {
+        const output = eval(input);
+        document.getElementById("result").value = output;
+        saveToMemory(`${input} = ${output}`);
+      } catch {
+        document.getElementById("result").value = "Error";
+      }
+    }
+
+    function clearResult() {
+      document.getElementById("result").value = "";
+    }
+
+    function triggerGlitter() {
+      const title = document.getElementById('title');
+      title.classList.add('glitter');
+      setTimeout(() => title.classList.remove('glitter'), 1000);
+    }
+
+    function saveToMemory(entry) {
+      const log = document.getElementById("memoryLog");
+      const p = document.createElement("p");
+      p.className = "memory-entry";
+      p.textContent = entry;
+      log.appendChild(p);
+    }
+
+    function clearMemory() {
+      document.getElementById("memoryLog").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
